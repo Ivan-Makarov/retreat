@@ -1,0 +1,16 @@
+'use strict';
+
+import formHandler from '../includes/signup/signup';
+import expandTextAreas from './textarea';
+import slider from '../includes/sliding_gallery/sliding_gallery';
+import map from '../includes/map/map';
+import smoothScroll from './scroll'
+
+document.addEventListener('DOMContentLoaded', () => {
+	formHandler('.signup')
+})
+document.addEventListener('DOMContentLoaded', slider);
+document.addEventListener('DOMContentLoaded', expandTextAreas);
+document.addEventListener('DOMContentLoaded', smoothScroll);
+
+map();

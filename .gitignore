@@ -1,0 +1,8 @@
+/build
+.*
+*~
+!/.gitignore
+!/.babelrc
+/config.json
+/node_modules
+mailconfig.php

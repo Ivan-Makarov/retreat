@@ -1,0 +1,18 @@
+.grid-gallery {
+    &__col {
+        width: 33.3%;
+    }
+    &__row {
+        width: 100%;
+        height: $brick_width;
+    }
+    &__item {
+        display: block;
+
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+
+        background-image: url('../img/monk.jpg');
+    }
+}

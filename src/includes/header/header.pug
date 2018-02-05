@@ -1,0 +1,10 @@
+header.header
+	.content.container-flex.container-flex_sb
+		ul.nav.container-flex
+			each section in sections
+				li.nav__item
+					a.nav__link(href!=`#${section.en}`)= section.ru
+		section.header__contacts
+			a.header__link(href!=`tel:${contacts.tel}`) #{helpers.formatTel(contacts.tel)}
+			a.header__link(href!=`mailto:${contacts.email}`)= contacts.email 
+

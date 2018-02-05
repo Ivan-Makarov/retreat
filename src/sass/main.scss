@@ -1,0 +1,21 @@
+@import "normalize";
+
+@import "variables";
+@import "fonts";
+@import "icons";
+@import "mixins";
+
+@import "general";
+
+@import "../includes/header/header";
+@import "../includes/footer/footer";
+
+@import "../includes/intro/intro";
+@import "../includes/info/info";
+
+@import "../includes/sliding_gallery/sliding_gallery";
+@import "../includes/grid_gallery/grid_gallery";
+
+@import "../includes/map/map";
+
+@import "../includes/signup/signup";

@@ -1,0 +1,66 @@
+html {
+    font-size: $base_font_size;
+    font-family: $base_font_family;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main {
+    flex: 1;
+	margin-top: 50px;
+}
+
+.content {
+    flex: 1;
+    width: $content_width;
+    margin: 0 auto;
+}
+
+.container {
+    display: block;
+}
+
+.container-flex {
+    display: flex;
+    &_col {
+        flex-direction: column;
+    }
+    &_sb {
+        justify-content: space-between;
+    }
+}
+
+.text {
+    &:not(:last-child) {
+        margin-bottom: 14px;
+    }
+}
+
+.link {
+	text-decoration: underline;
+    &:hover {
+        text-decoration: none;
+        cursor: pointer;
+        color: $bright_orange;
+    }
+}
+
+.btn {
+	text-align: center;
+    padding: 10px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.noscroll {
+    overflow: hidden;
+}

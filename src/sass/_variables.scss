@@ -1,0 +1,15 @@
+$base_font_size: 16px;
+// $base_font_family: Arial, Helvetica, sans-serif;
+$base_font_family: Lora, serif;
+$content_width: 1080px;
+
+$gutter: 30px;
+$brick_width: ($content_width - 3 * $gutter) / 4;
+
+$light_orange: #ff8d13;
+$light_brown: #bd7100;
+$mid_brown: #ad5e00;
+$bright_orange: #e0370c;
+$dark_brown: #750614;
+
+$link_hover_col: $light_orange;

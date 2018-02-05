@@ -1,0 +1,15 @@
+section.signup-section
+	.content
+		form#signup.signup.container-flex.container-flex_col
+			p.signup__text
+				span Запишитесь на &laquo;Практику внутренней тишины&raquo; по&nbsp;телефону 
+				a(href=`tel:${contacts.tel}`) #{helpers.formatTel(contacts.tel)}
+				span , &nbsp;электронной почте 
+				a(href=`mailto:${contacts.tel}`)= contacts.email
+				span  или через эту форму:
+			input.signup__input(type="text" placeholder="Имя *" name="name")
+			input.signup__input(type="text" placeholder="Почта или телефон *" name="contact")
+			textarea.signup__input.signup__textarea(placeholder="Вопросы и комментарии" name="comment")
+			button.signup__btn(type="submit" disabled="true") Заполните форму, чтобы отправить заявку
+		.submit-msg.hidden
+

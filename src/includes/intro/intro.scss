@@ -1,0 +1,12 @@
+.intro {
+   	margin-top: $gutter * 3.2;
+    margin-bottom: $gutter * 3.2;
+
+    //background-color: lighten($light_orange, 20%);
+    &__heading {
+        margin-top: $gutter / 2;
+        margin-bottom: $gutter / 2;
+        font-size: 20px;
+		font-weight: bold;
+    }
+}

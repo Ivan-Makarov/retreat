@@ -1,0 +1,43 @@
+$header_bgc: $dark_brown;
+$header_col: white;
+
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+	z-index: 10000;
+
+    background-color: $header_bgc;
+    color: $header_col;
+
+	box-shadow: 0 0 20px rgba(darken($bright_orange, 10%), 0.8);
+	&__contacts {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+	}
+	&__link {
+		&:not(:last-child) {
+			margin-bottom: 5px;
+		}
+		&:hover {
+			color: $link_hover_col;
+		}
+	}
+}
+
+.nav {
+	align-items: center;
+    justify-content: flex-end;
+    &__item {
+        margin-right: 30px;
+    }
+	&__link {
+		&:hover {
+			color: $link_hover_col;
+		}
+	}
+}

@@ -1,0 +1,48 @@
+@import '../../node_modules/owl.carousel/dist/assets/owl.carousel.css';
+
+.sliding-gallery {
+    position: relative;
+    margin-top: $gutter;
+    margin-bottom: $gutter;
+    &__item {
+        display: block;
+        height: $brick_width;
+        width: $brick_width;
+        background-color: $bright_orange;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        //background-image: url('../img/monk.jpg');
+    }
+    $owl_nav_h: 16px;
+    &__nav {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        height: $owl_nav_h;
+        width: 100%;
+        transform: translateY(-$owl_nav_h);
+        .owl-prev,
+        .owl-next {
+			height: 20px;
+			width: 10px;
+            position: absolute;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: cover;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        $owl_nav_offset: -20px;
+        .owl-prev {
+			background-image: $arrow_left_orange;
+            left: $owl_nav_offset;
+        }
+        .owl-next {
+			background-image: $arrow_right_orange;			
+            right: $owl_nav_offset;
+        }
+    }
+}

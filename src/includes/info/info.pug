@@ -1,0 +1,23 @@
+section.info(id=`${event.id}`)
+	.content.container-flex
+		section.info__description
+			h2.heading.info__heading !{event.heading}
+			each p in event.description
+				p.text !{p}
+		section.info__details_reg.container-flex.container-flex_col
+			article.info__details.container-flex
+				div
+					section.info__date
+						span= event.startDate 
+						|  &mdash; 
+						span= event.endDate
+					section.info__place
+						each item in event.place
+							p.info__place-item
+								if (item.link.ext)
+									a.link(href=`${item.link.link}` target="_blank" title=`${item.link.title}`) !{item.name}
+								else
+									a.link(href=`${item.link.link}` title=`${item.link.title}`) !{item.name}
+
+
+			a.btn.info__reg(href="#signup") Записаться
