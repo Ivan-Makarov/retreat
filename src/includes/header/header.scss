@@ -2,6 +2,11 @@ $header_bgc: $dark_brown;
 $header_col: white;
 
 .header {
+	a {
+		&:active {
+			color: $light_orange;
+		}
+	}
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -27,7 +32,13 @@ $header_col: white;
 			color: $link_hover_col;
 		}
 	}
+	&__btn {
+		display: flex;
+		align-items: center;
+	}
 }
+
+
 
 .nav {
 	align-items: center;
@@ -41,3 +52,16 @@ $header_col: white;
 		}
 	}
 }
+
+.header-btn {
+	height: 25px;
+	width: 100%;
+	background-repeat: no-repeat;
+	background-size: auto 100%;
+	background-position: left center;
+	background-image: $menu_icon;
+	&:focus {
+		outline: none;
+	}
+}
+

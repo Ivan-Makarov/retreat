@@ -5,10 +5,9 @@
 }
 
 .signup {
+	width: 400px;
 	align-items: center;
 	&__text {
-		max-width: 400px;
-		//text-align: center;
 		font-size: 17px;
 		margin-bottom: 15px;
 		color: white;
@@ -21,7 +20,7 @@
 	}
 	&__input {
 		display: block;
-		width: 400px;
+		width: 100%;
 		$form_fz: 18px;
 		padding: 3px 5px;
 		margin-bottom: 15px;
@@ -72,7 +71,7 @@
 	}
 	&__btn {
 		position: relative;
-		max-width: 400px;
+		max-width: 100%;
 		font-size: 18px;
 		padding: 8px 12px;
 		background-color: lighten($light_orange, 30%);
@@ -111,7 +110,7 @@
 		}	
 	}
 	&__form-row {
-		width: 400px;
+		width: 100%;
 		//justify-content: space-between;
 		align-items: center;
 		margin-bottom: 15px;
@@ -124,7 +123,7 @@
 	}
 	&__fieldset {
 		border: none;
-		width: 400px;
+		width: 100%;
 		margin-bottom: 15px;
 	}
 	&__legend {
@@ -143,11 +142,12 @@
 		//margin-right: 5px;
 		margin-bottom: 5px;
 		background-color: lighten($light_orange, 30%);
-		color: gray;
+		color: black;
 		box-shadow: 0 2px 4px rgba(black, 0.3);	
 		&.checked {
 			background-color: $light_orange;
 			color: white;
+			box-shadow: none;
 		}
 		&:hover {
 			cursor: pointer;

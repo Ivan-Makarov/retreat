@@ -32,6 +32,10 @@ html {
     &_sb {
         justify-content: space-between;
     }
+	&_center {
+		justify-content: space-around;
+		align-items: center;
+	}
 }
 
 .text {
