@@ -4,14 +4,19 @@ use PHPMailer\PHPMailer\Exception;
 
 
 $name = $_POST["name"];
+$email = $_POST["email"];
+$tel = $_POST["tel"];
+$whereFrom = $_POST["where-from"];
+$beenBefore = $_POST["been-before"];
+$beforeDetails = $_POST["before-details"];
+$room = $_POST["room"];
 $comment = $_POST["comment"];
-$contact = $_POST["contact"];
 
-$msgOwner = 'Новая заявка на ретрит. Участник: ' . $name . ". Контакт: " . $contact . ". Комментарий участника: " . $comment;
+$msgOwner = 'Новая заявка на ретрит. Участник: ' . $name . ". Откуда: " . $whereFrom . ". Был на ретритах: " . $beenBefore . ". Подробности: " . $beforeDetails . ". Выбран номер: " . $room . ". Почта: " . $email . ". Телефон: " . $tel . ". Комментарий участника: " . $comment;
 $msgOwnerAlt = $msgOwner;
 
 $msgUser = "Добрый день, " . $name . '. Ваша заявка на ретрит "Практика внутренней тишины" принята. Мы свяжемся с вами в ближайшее время, чтобы уточнить все детали. Если вы не оставляли заявок, просто проигнорируйте это письмо.';
-$msgUSerAlt = $msgUser;
+$msgUserAlt = $msgUser;
 
 function sendEmailToOwner($msg) {
 	require(__DIR__ . '/mailconfig.php');
@@ -29,12 +34,12 @@ function sendEmailToOwner($msg) {
 
 		$mail->From = $mailconfig['from'];
 		$mail->FromName = $mailconfig['fromname'];
-		$mail->AddAddress('ivan.s.makarov@yandex.ru'); 
+		$mail->AddAddress($mailconfig['from']); 
 
 		$mail->IsHTML(true);                           
 		$mail->CharSet = 'utf-8';
 
-		$mail->Subject = 'Новая заявка на випассану';
+		$mail->Subject = 'Новая заявка на ретрит';
 		$mail->Body    = $msg;
 		$mail->AltBody = $msgAlt;
 
@@ -66,7 +71,7 @@ function sendEmailToUser($msg, $msgAlt, $email) {
 		$mail->IsHTML(true);                           
 		$mail->CharSet = 'utf-8';
 
-		$mail->Subject = 'Спасибо за регистрацию на "Практику внутренней тишины"';
+		$mail->Subject = 'Заявка на "Практику внутренней тишины"';
 		$mail->Body    = $msg;
 		$mail->AltBody = $msgAlt;
 
@@ -77,8 +82,8 @@ function sendEmailToUser($msg, $msgAlt, $email) {
 	}	
 }
 
-if (filter_var($contact, FILTER_VALIDATE_EMAIL)) {
-	sendEmailToUser($msgUser, $msgUserAlt, $contact);
+if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+	sendEmailToUser($msgUser, $msgUserAlt, $email);
 } 
 
 sendEmailToOwner($msgOwner, $msgOwnerAlt)

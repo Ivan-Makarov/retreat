@@ -1,12 +1,83 @@
+import data from '../../../data';
+import Inputmask from "inputmask";
+
+
 export default (formQS) => {
 	const form = document.querySelector(formQS);	
+	bindInputsAndLabels(form);
 	validate(form);
+	bindCbAndItem('[name="been-before"][value="Да"]', '#before-details');
+	maskTel(form)
+
+	function maskTel(form) {
+		const telMask = new Inputmask("+7(999)999-99-99");
+		telMask.mask(form.querySelector('[name="tel"]'));
+	}
+
+	function bindInputsAndLabels(form) {
+		const cbs = [...form.querySelectorAll('.cb')];
+		cbs.forEach(bindLabel);
+
+		const radios = [...form.querySelectorAll('.radio')];
+		radios.forEach(bindLabel);
+
+		function bindLabel(item) {
+			const label = item.id ? form.querySelector(`[for=${item.id}].js-label`) : item.parentElement		
+			item.addEventListener('change', () => {
+				checkLabel(item, label)
+			})	
+		}
+
+		function checkLabel(item, label) {
+			if (item.checked) {
+				const allLabels = [...document.querySelectorAll(`[data-group="${label.dataset.group}"]`)];
+				allLabels.forEach(uncheckItem);
+				checkItem(label);
+			} else {
+				uncheckItem(label)
+			}
+		}
+
+		function checkItem(item) {
+			item.classList.add('checked')
+		}
+
+		function uncheckItem(item) {
+			item.classList.remove('checked')
+		}	
+	}
+
+	function bindCbAndItem(cbqs, itemqs) {
+		const cb = form.querySelector(cbqs);
+		const item = form.querySelector(itemqs);
+
+		cb.addEventListener('change', () => {
+			showOnChecked(cb, item)
+		})
+	}
+
+	function showOnChecked(cb, item) {
+		if (cb.checked) {
+			item.classList.remove('hidden');
+		} else {
+			item.classList.add('hidden');
+		}
+	}
 
 	function validate(form) {
 		const submitBtn = form.querySelector('button');
-		const inputs = [...form.querySelectorAll('input')];
+		const inputs = [...form.querySelectorAll('input')].reduce(toRequired, []);
 		const inputsCount = inputs.length;
 		let validInputs = [];
+
+		function toRequired(required, item) {
+			if (isIn(data.required, item.name)) {
+				required.push(item);
+				return required
+			} else {
+				return required
+			}
+		}
 
 		inputs.forEach(input => {
 			input.addEventListener('input', checkValidityInput)
@@ -54,24 +125,27 @@ export default (formQS) => {
 		}
 
 		function isValid(input) {
+			const emailRegEx = /\S+@\S+\.\S{2,}/;
+			const phoneRegEx = /\+?\d{11,}/;
+			const phoneChars = /[()\s-]/g;
+
+			function isEmail(item) {
+				return item.match(emailRegEx)
+			}
+
+			function isPhone(item) {
+				return item.replace(phoneChars, '').match(phoneRegEx)
+			}
+			
 			switch(input.name) {
 				case 'name':
 					return input.value.length > 0
 					break
-				case 'contact':
-					const emailRegEx = /\S+@\S+\.\S{2,}/;
-					const phoneRegEx = /\+?\d{11,}/;
-					const phoneChars = /[()\s-]/g;
-
-					function isEmail(item) {
-						return item.match(emailRegEx)
-					}
-
-					function isPhone(item) {
-						return item.replace(phoneChars, '').match(phoneRegEx)
-					}
-
-					return isPhone(input.value) || isEmail(input.value)
+				case 'email':
+					return isEmail(input.value);
+					break
+				case 'tel':
+					return isPhone(input.value)
 					break
 				default:
 					return true
@@ -116,7 +190,6 @@ export default (formQS) => {
 			return res.text()	
 		})
 		.then((res) => {
-			console.log(res);
 			res ? showSubmission(form, msg) : showErr(form, msg)
 		})
 		.catch((err) => {

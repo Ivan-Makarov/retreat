@@ -101,6 +101,11 @@ gulp.task('img', () => {
         .pipe(gulp.dest('./build/img'))
 });
 
+gulp.task('php', () => {
+    return gulp.src('./src/**/*.php')
+        .pipe(gulp.dest('./build'))
+});
+
 gulp.task('sync', () => {
     browsersync.init({
         proxy: config.proxy,
@@ -110,7 +115,7 @@ gulp.task('sync', () => {
     })
 });
 
-gulp.task('build', ['pug', 'css', 'js', 'img']);
+gulp.task('build', ['pug', 'css', 'js', 'img', 'php']);
 
 gulp.task('watch', () => {
     gulp.watch(['./src/**/*.scss'], ['css']);

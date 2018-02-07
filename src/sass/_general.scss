@@ -58,9 +58,13 @@ html {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .noscroll {
     overflow: hidden;
+}
+
+.nobreak {
+	white-space: nowrap;
 }

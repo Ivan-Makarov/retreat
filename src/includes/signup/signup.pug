@@ -3,12 +3,31 @@ section.signup-section
 		form#signup.signup.container-flex.container-flex_col
 			p.signup__text
 				span Запишитесь на &laquo;Практику внутренней тишины&raquo; по&nbsp;телефону 
-				a(href=`tel:${contacts.tel}`) #{helpers.formatTel(contacts.tel)}
+				a(href=`tel:${contacts.tel}`)
+					span.nobreak #{helpers.formatTel(contacts.tel)}
 				span , &nbsp;электронной почте 
 				a(href=`mailto:${contacts.tel}`)= contacts.email
-				span  или через эту форму:
-			input.signup__input(type="text" placeholder="Имя *" name="name")
-			input.signup__input(type="text" placeholder="Почта или телефон *" name="contact")
+				span  или через форму ниже.
+			p.signup__text После этого мы вышлем вам реквизиты для предоплаты. Предоплата составляет 4&nbsp;000 рублей. 
+			input.signup__input(type="text" placeholder="Имя и фамилия *" name="name")
+			input.signup__input(type="email" placeholder="Почта *" name="email")
+			input.signup__input(type="tel" placeholder="Телефон" name="tel")
+			input.signup__input(type="text" placeholder="Откуда вы?" name="where-from")
+			.signup__form-row.container-flex
+				label(for="been-before").signup__label-cb.js-label
+				label(for="been-before").signup__row-title Поставьте галочку, если были на&nbsp;подобном ретрите раньше
+				input(type="hidden" name="been-before" value="Нет")
+				input.cb(id="been-before" name="been-before" type="checkbox" value="Да")
+			textarea.signup__input.signup__textarea.hidden(id="before-details" name="before-details" placeholder="Пожалуйста, расскажите, где, когда и с каким учителем")
+			fieldset.signup__fieldset
+				legend.signup__legend Выберите вариант проживания:
+				each item in accommodation
+					if item.checked
+						label.signup__label-radio(data-group="room").checked !{item.type}
+							input.radio(name="room" type="radio" value!=`${item.type}` checked)
+					else
+						label.signup__label-radio(data-group="room") !{item.type}
+							input.radio(name="room" type="radio" value!=`${item.type}`)
 			textarea.signup__input.signup__textarea(placeholder="Вопросы и комментарии" name="comment")
 			button.signup__btn(type="submit" disabled="true") Заполните форму, чтобы отправить заявку
 		.submit-msg.hidden
