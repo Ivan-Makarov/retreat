@@ -134,7 +134,7 @@ gulp.task('deploy', () => {
         host: config.host,
 		user: config.user,
 		password: config.password,
-        parallel: 1,
+        parallel: 3,
         log: gutil.log
     } );
 
@@ -155,12 +155,54 @@ gulp.task('deployCSS', () => {
         host: config.host,
 		user: config.user,
 		password: config.password,
-        parallel: 1,
+        parallel: 3,
         log: gutil.log
     } );
 
     const globs = [
 		'./build/css/**'
+    ];
+
+    return gulp.src(globs, {
+            base: './build',
+            buffer: false
+        })
+		.pipe(conn.newer(config.base))
+		.pipe(conn.dest(config.base));
+});
+
+gulp.task('deployHTML', () => {
+    const conn = ftp.create({
+        host: config.host,
+		user: config.user,
+		password: config.password,
+        parallel: 3,
+        log: gutil.log
+    } );
+
+    const globs = [
+		'./build/**/*.html'
+    ];
+
+    return gulp.src(globs, {
+            base: './build',
+            buffer: false
+        })
+		.pipe(conn.newer(config.base))
+		.pipe(conn.dest(config.base));
+});
+
+gulp.task('deployJS', () => {
+    const conn = ftp.create({
+        host: config.host,
+		user: config.user,
+		password: config.password,
+        parallel: 3,
+        log: gutil.log
+    } );
+
+    const globs = [
+		'./build/js/**'
     ];
 
     return gulp.src(globs, {

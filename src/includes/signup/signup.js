@@ -139,7 +139,7 @@ export default (formQS) => {
 			
 			switch(input.name) {
 				case 'name':
-					return input.value.length > 0
+					return input.value.split(' ').length > 1 && input.value.split(' ')[1] != ''  
 					break
 				case 'email':
 					return isEmail(input.value);

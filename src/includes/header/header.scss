@@ -18,7 +18,7 @@ $header_col: white;
     background-color: $header_bgc;
     color: $header_col;
 
-	box-shadow: 0 0 20px rgba(darken($bright_orange, 10%), 0.8);
+	box-shadow: 0 0 30px rgba(30, 0, 0, 0.8);
 	&__contacts {
 		display: flex;
 		flex-direction: column;
@@ -33,7 +33,7 @@ $header_col: white;
 		}
 	}
 	&__btn {
-		display: flex;
+		display: none;
 		align-items: center;
 	}
 }

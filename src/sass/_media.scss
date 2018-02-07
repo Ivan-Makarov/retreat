@@ -29,6 +29,10 @@
 			padding-top: 7px;
 			padding-bottom: 7px;
 		}
+	}
+
+	.header__btn {
+		display: flex;
 	}	
 
 	.header {
@@ -60,6 +64,12 @@
 	}
 }
 
-
+@media
+(-webkit-min-device-pixel-ratio: 2), 
+(min-resolution: 192dpi) { 
+	.signup__btn.sending:after {
+		background-image: $loader_icon_hires;
+	} 
+}
 
 

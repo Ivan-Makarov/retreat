@@ -24,7 +24,15 @@ export default () => {
 
 	links.forEach(link => {
 		link.addEventListener('click', () => {
-			close(menu)
+			if(window.innerWidth <= 750) {
+				close(menu)
+			} 	
 		})
 	})
+
+	window.addEventListener('resize', adjustMenu)
+
+	function adjustMenu() {
+		window.innerWidth > 750 ? open(menu) : close(menu)
+	}
 }
