@@ -7,7 +7,10 @@ export default (formQS) => {
 	bindInputsAndLabels(form);
 	validate(form);
 	bindCbAndItem('[name="been-before"][value="Да"]', '#before-details');
-	maskTel(form)
+	maskTel(form);
+
+	saveUserInput(form);
+	restoreUserInput(form);
 
 	function maskTel(form) {
 		const telMask = new Inputmask("+7(999)999-99-99");
@@ -202,13 +205,22 @@ export default (formQS) => {
 			msg.classList.remove('hidden');
 		}
 		form.classList.add('hidden');
-		msg.textContent = 'Спасибо, мы свяжемся с вами в течение суток.';
+		msg.textContent = 'Спасибо, мы свяжемся с вами в течение суток. Через несколько секунд вы сможете отправить еще одну форму.';
+		form.querySelector('button').classList.remove('sending');
+		form.querySelector('button').textContent = "Отправить заявку";		
+		setTimeout(() => {
+			msg.classList.add('hidden')
+			form.classList.remove('hidden');
+		}, 5000);
+		clearField(form.querySelector('[name="name"]'))
+		clearField(form.querySelector('[name="email"]'))
+		clearField(form.querySelector('[name="tel"]'))				
 	}
 
 	function showErr(form, msg) {
 		msg.classList.add('err');
 		msg.classList.remove('hidden');
-		msg.textContent = 'Что-то пошло не так. Попробуйте еще раз или свяжитесь со нами по телефону или по электронной почте';
+		msg.textContent = 'Что-то пошло не так. Попробуйте еще раз или свяжитесь с нами по телефону или поэлектронной почте';
 		form.classList.add('hidden');
 		form.querySelector('button').classList.remove('sending');
 		form.querySelector('button').textContent = "Отправить заявку";
@@ -216,6 +228,10 @@ export default (formQS) => {
 			msg.classList.add('hidden')
 			form.classList.remove('hidden');
 		}, 5000)
+	}
+
+	function clearField(field) {
+		field.value = "";
 	}
 
 	function isIn(arr, item) {
@@ -229,5 +245,88 @@ export default (formQS) => {
 			return el == item
 		}), 1)
 	}
+
+	function saveUserInput(form) {
+		form.addEventListener('input', () => {
+			saveInput(form)
+		});
+
+		form.addEventListener('change', () => {
+			saveInput(form)
+		});
+		
+
+		function saveInput(form) {
+			const json = jsonifyFormData(form)
+			localStorage.setItem('data', json)
+		}
+	}
+
+	function restoreUserInput(form) {
+		const inputs = [...form.querySelectorAll('input, textarea, select')];
+		
+		if (localStorage.data) {
+			const data = JSON.parse(localStorage.data);
+			restoreValues(inputs, data);
+		}
+
+		function restoreValues(inputs, data) {
+			inputs.forEach(input => {
+				const value = data[input.name];
+				
+				const changeEvent = new Event('change', {
+					'bubbles': true,
+					'cancelable': true
+				});				
+				const inputEvent = new Event('input', {
+					'bubbles': true,
+					'cancelable': true
+				});
+
+				if (value) {
+					if (input.tagName === 'SELECT') {
+						input.value = value;
+						input.dispatchEvent(changeEvent)								
+					} else {
+						
+						switch(input.type) {
+							case 'radio':
+								console.log(value);
+								const label = form.querySelector(`[data-for="${value}"]`);
+								console.log(label);
+								label ? label.click() : input.click();
+								break;
+							case 'checkbox':
+								if (value == input.value) {									
+									const label = form.querySelector(`[for=${input.id}]`);
+									label ? label.click() : input.click();	
+								}
+								break;
+							case 'hidden':
+								break
+							default:
+								input.value = value;
+								input.dispatchEvent(inputEvent)
+								break
+						}						
+					}
+				}
+			})
+		}
+	}
+
+	function jsonifyFormData(form) {
+		const formData = new FormData(form);
+
+		function toObject(object, [key, value]) {
+			object[key] = value;
+			return object
+		}
+
+		const dataObject = [...formData].reduce(toObject, {})
+
+		return JSON.stringify(dataObject) 
+	}
+	
 }
 

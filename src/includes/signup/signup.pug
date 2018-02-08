@@ -8,7 +8,8 @@ section.signup-section
 				span , &nbsp;электронной почте 
 				a(href=`mailto:${contacts.tel}`)= contacts.email
 				span  или через форму ниже.
-			p.signup__text После этого мы вышлем вам реквизиты для предоплаты. Предоплата составляет 4&nbsp;000 рублей. 
+			p.signup__text Форму нужно заполнить на каждого участника. Вы сможете заполнить новую форму после отправки.
+			p.signup__text В&nbsp;ответ мы вышлем вам реквизиты для&nbsp;предоплаты &mdash; 4&nbsp;000 рублей &mdash; и&nbsp;скажем, что делать дальше.  
 			input.signup__input(type="text" placeholder="Имя и фамилия *" name="name")
 			input.signup__input(type="email" placeholder="Почта *" name="email")
 			input.signup__input(type="tel" placeholder="Телефон" name="tel")
@@ -23,12 +24,11 @@ section.signup-section
 				legend.signup__legend Выберите вариант проживания:
 				each item in accommodation
 					if item.checked
-						label.signup__label-radio(data-group="room").checked !{item.type}
+						label.signup__label-radio(data-group="room" data-for=`${item.type}`).checked !{item.text}
 							input.radio(name="room" type="radio" value!=`${item.type}` checked)
 					else
-						label.signup__label-radio(data-group="room") !{item.type}
+						label.signup__label-radio(data-group="room" data-for=`${item.type}`) !{item.text}
 							input.radio(name="room" type="radio" value!=`${item.type}`)
 			textarea.signup__input.signup__textarea(placeholder="Вопросы и комментарии" name="comment")
 			button.signup__btn(type="submit" disabled="true") Заполните поля, отмеченные *, чтобы отправить заявку
 		.submit-msg.hidden
-
